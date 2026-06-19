@@ -79,7 +79,7 @@ const CLUSTERS = [
 
 /* ─── CSS ──────────────────────────────────────────────────────────────── */
 const CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Fira+Code:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Sora:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&display=swap');
 
 :root {
   --bg:     #08080A;
@@ -93,8 +93,8 @@ const CSS = `
   --border: rgba(244,244,240,0.12);
   --border-h: rgba(244,244,240,0.28);
   --mono:   'Fira Code', monospace;
-  --disp:   'Bebas Neue', sans-serif;
-  --body:   'Instrument Sans', sans-serif;
+  --disp:   'Big Shoulders Display', sans-serif;
+  --body:   'Sora', sans-serif;
   --max:    1200px;
   --gutter: 64px;
 }
@@ -158,11 +158,19 @@ body:has(button:hover) #cring { width: 48px; height: 48px; border-color: var(--a
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
 }
-.nav-logo { font-family: var(--disp); font-size: 20px; letter-spacing: .06em; }
+.nav-logo { font-family: var(--disp); font-weight: 900; font-size: 20px; letter-spacing: .06em; }
 .nav-links { display: flex; gap: 32px; align-items: center; }
 .nav-link { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--dimmer); text-decoration: none; transition: color .2s; }
 .nav-link:hover { color: var(--fg); }
 .nav-clock { font-family: var(--mono); font-size: 9.5px; color: var(--dimmer); letter-spacing: .1em; }
+.nav-resume {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .12em;
+  color: var(--bg); background: var(--acid);
+  padding: 7px 13px; text-decoration: none;
+  transition: all .18s ease;
+}
+.nav-resume:hover { background: var(--acid2); transform: translateY(-1px); }
 
 /* SECTION LABEL */
 .sec-label {
@@ -174,6 +182,9 @@ body:has(button:hover) #cring { width: 48px; height: 48px; border-color: var(--a
 
 /* WRAPPER */
 .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+
+/* DISPLAY FONT WEIGHT — Big Shoulders Display needs explicit weight */
+.disp { font-weight: 900; }
 
 /* BUTTONS */
 .btn-acid {
@@ -193,6 +204,8 @@ body:has(button:hover) #cring { width: 48px; height: 48px; border-color: var(--a
   transition: all .2s ease;
 }
 .btn-wire:hover { border-color: rgba(244,244,240,0.6); transform: translate(-2px,-2px); box-shadow: 3px 3px 0 rgba(244,244,240,0.12); }
+
+.btn-resume:hover { border-color: var(--acid); color: var(--acid); box-shadow: 3px 3px 0 rgba(170,255,0,0.18); }
 
 /* SKILL TAG */
 .tag {
@@ -219,24 +232,15 @@ body:has(button:hover) #cring { width: 48px; height: 48px; border-color: var(--a
   transition: border-color .3s, background .3s;
 }
 .pc:hover { border-color: rgba(244,244,240,0.26); background: rgba(244,244,240,0.03); }
-.pc-inner { padding: 36px 32px 72px; }
+.pc-inner { padding: 36px 32px 44px; }
 .pc-num {
-  font-family: var(--disp); font-size: 120px; line-height: 1;
+  font-family: var(--disp); font-weight: 900; font-size: 120px; line-height: 1;
   color: transparent; -webkit-text-stroke: 1px var(--faint);
   position: absolute; bottom: -8px; right: 16px;
   pointer-events: none; user-select: none;
   transition: -webkit-text-stroke .3s;
 }
 .pc:hover .pc-num { -webkit-text-stroke: 1px rgba(170,255,0,0.35); }
-.pc-vd {
-  opacity: 0; transform: translateY(6px);
-  transition: opacity .22s, transform .22s;
-  position: absolute; bottom: 24px; right: 28px;
-  font-family: var(--mono); font-size: 10px; letter-spacing: .08em;
-  text-transform: uppercase; display: inline-flex; align-items: center; gap: 6px;
-  text-decoration: none;
-}
-.pc:hover .pc-vd { opacity: 1; transform: none; }
 
 /* EXPERIENCE TIMELINE */
 .tl-item {
@@ -273,8 +277,6 @@ body:has(button:hover) #cring { width: 48px; height: 48px; border-color: var(--a
   .spin-wrap { display: none !important; }
   .stat-strip { flex-wrap: wrap; }
   .stat-div   { display: none !important; }
-  .pc-vd { position: static !important; opacity: 1 !important; transform: none !important; margin-top: 16px; }
-  .pc-inner { padding-bottom: 28px !important; }
 }
 @media(max-width:600px) {
   .contact-row { grid-template-columns: 1fr !important; }
@@ -371,7 +373,18 @@ function Nav() {
           <a key={label} href={href} className="nav-link">{label}</a>
         ))}
       </div>
-      <Clock/>
+      <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+        <Clock/>
+        <a
+          href="https://drive.google.com/uc?export=download&id=1HIKOItMQr1uYCRjT5d_1I6PCSMII0UCD"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="nav-resume"
+        >
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16"/></svg>
+          RESUME
+        </a>
+      </div>
     </nav>
   );
 }
@@ -398,24 +411,20 @@ function Hero() {
   const stats = [["~2","YRS EXPERIENCE"],["01","PATENT PENDING"],["4","PROJECTS SHIPPED"]];
 
   return (
-    <section style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "120px 0 72px", position: "relative", zIndex: 2, overflow: "hidden" }}>
+    <section style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "flex-start", padding: "104px 0 72px", position: "relative", zIndex: 2, overflow: "hidden" }}>
 
-      {/* ── decorative background grid lines ── */}
+      {/* ── decorative background ── */}
       <div style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0 }}>
         {/* vertical column lines */}
         {[18, 36, 54, 72, 82].map(pct => (
-          <div key={pct} style={{ position: "absolute", top: 0, bottom: 0, left: `${pct}%`, width: "1px", background: "rgba(244,244,240,0.04)" }}/>
+          <div key={pct} style={{ position: "absolute", top: 0, bottom: 0, left: `${pct}%`, width: "1px", background: "rgba(244,244,240,0.045)" }}/>
         ))}
-        {/* horizontal rule at 40% */}
-        <div style={{ position: "absolute", left: 0, right: 0, top: "38%", height: "1px", background: "rgba(244,244,240,0.04)" }}/>
-        {/* acid corner bracket — top left */}
-        <div style={{ position: "absolute", top: "88px", left: "64px", width: "28px", height: "28px", borderTop: "1px solid rgba(170,255,0,0.3)", borderLeft: "1px solid rgba(170,255,0,0.3)" }}/>
-        {/* acid corner bracket — bottom right */}
+        {/* acid corner bracket — bottom right only */}
         <div style={{ position: "absolute", bottom: "72px", right: "64px", width: "28px", height: "28px", borderBottom: "1px solid rgba(170,255,0,0.3)", borderRight: "1px solid rgba(170,255,0,0.3)" }}/>
         {/* large ghost number */}
-        <div style={{ position: "absolute", right: "-1%", bottom: "-10%", fontFamily: "var(--disp)", fontSize: "clamp(220px,30vw,440px)", lineHeight: 1, color: "transparent", WebkitTextStroke: "1px rgba(244,244,240,0.055)", userSelect: "none" }}>01</div>
-        {/* subtle dot grid — top right quadrant */}
-        <svg style={{ position: "absolute", top: "60px", right: "80px", opacity: 0.18 }} width="160" height="160" viewBox="0 0 160 160">
+        <div className="disp" style={{ position: "absolute", right: "-1%", bottom: "-10%", fontFamily: "var(--disp)", fontSize: "clamp(220px,30vw,440px)", lineHeight: 1, color: "transparent", WebkitTextStroke: "1px rgba(244,244,240,0.055)", userSelect: "none" }}>01</div>
+        {/* dot grid — top right quadrant */}
+        <svg style={{ position: "absolute", top: "120px", right: "80px", opacity: 0.22 }} width="160" height="160" viewBox="0 0 160 160">
           {Array.from({ length: 6 }, (_, row) =>
             Array.from({ length: 6 }, (_, col) => (
               <circle key={`${row}-${col}`} cx={col * 28 + 8} cy={row * 28 + 8} r="1.2" fill="rgba(170,255,0,0.7)" />
@@ -433,9 +442,21 @@ function Hero() {
       {/* ── left accent bar ── */}
       <div style={{ position: "absolute", left: 0, top: "15%", bottom: "15%", width: "3px", background: "var(--acid)", opacity: 0.5, zIndex: 1, pointerEvents: "none" }}/>
 
-      <div className="wrap" style={{ position: "relative", zIndex: 1 }}>
+      <div className="wrap" style={{ position: "relative", zIndex: 1, flex: 1, display: "flex", flexDirection: "column" }}>
 
-        {/* eyebrow row — tighter margin now */}
+        {/* ── top meta strip — fills space above eyebrow ── */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: "20px", borderBottom: "1px solid var(--border)", marginBottom: "44px", opacity: on ? 1 : 0, transform: on ? "none" : "translateY(8px)", transition: "all .6s ease .02s" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "28px", flexWrap: "wrap" }}>
+            <span style={{ fontFamily: "var(--mono)", fontSize: "9px", color: "var(--dimmer)", letterSpacing: ".14em" }}>PORTFOLIO / 2026</span>
+            <div style={{ width: "1px", height: "12px", background: "var(--border)" }}/>
+            <span style={{ fontFamily: "var(--mono)", fontSize: "9px", color: "var(--dimmer)", letterSpacing: ".14em" }}>BUILT WITH REACT</span>
+          </div>
+          <div style={{ fontFamily: "var(--mono)", fontSize: "9px", color: "var(--dimmer)", letterSpacing: ".14em" }}>
+            INDEX — 01 / 06
+          </div>
+        </div>
+
+        {/* eyebrow row */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "28px", opacity: on ? 1 : 0, transform: on ? "none" : "translateY(10px)", transition: "all .65s ease .06s" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <div style={{ width: "20px", height: "1px", background: "var(--acid)", flexShrink: 0 }}/>
@@ -459,11 +480,11 @@ function Hero() {
         {/* headline — tighter line height, no gap between lines */}
         {["BUILDING", "SYSTEMS THAT"].map((word, i) => (
           <div key={word} style={{ overflow: "hidden", opacity: on ? 1 : 0, transform: on ? "none" : "translateY(32px)", transition: `all .8s cubic-bezier(.16,1,.3,1) ${0.14 + i * 0.08}s` }}>
-            <h1 className="gh" data-t={word} style={{ fontFamily: "var(--disp)", fontSize: "clamp(58px,9.5vw,148px)", lineHeight: .93, letterSpacing: "-.01em", color: "var(--fg)", display: "block" }}>{word}</h1>
+            <h1 className="gh disp" data-t={word} style={{ fontFamily: "var(--disp)", fontSize: "clamp(58px,9.5vw,148px)", lineHeight: .93, letterSpacing: "-.01em", color: "var(--fg)", display: "block", textShadow: "0 8px 40px rgba(0,0,0,0.4)" }}>{word}</h1>
           </div>
         ))}
         <div style={{ overflow: "hidden", marginBottom: "36px", opacity: on ? 1 : 0, transform: on ? "none" : "translateY(32px)", transition: "all .8s cubic-bezier(.16,1,.3,1) .3s" }}>
-          <h1 style={{ fontFamily: "var(--disp)", fontSize: "clamp(58px,9.5vw,148px)", lineHeight: .93, letterSpacing: "-.01em", color: "transparent", WebkitTextStroke: "2px var(--acid)", display: "block" }}>
+          <h1 className="disp" style={{ fontFamily: "var(--disp)", fontSize: "clamp(58px,9.5vw,148px)", lineHeight: .93, letterSpacing: "-.01em", color: "transparent", WebkitTextStroke: "2px var(--acid)", display: "block", filter: "drop-shadow(0 0 24px rgba(170,255,0,0.25))" }}>
             {typed}<span style={{ animation: "blink 1s step-end infinite", WebkitTextFillColor: "var(--acid)" }}>|</span>
           </h1>
         </div>
@@ -477,6 +498,15 @@ function Hero() {
             <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
               <a href="#projects" className="btn-acid">See the work ↗</a>
               <a href="#contact"  className="btn-wire">Let's talk</a>
+              <a
+                href="https://drive.google.com/uc?export=download&id=1HIKOItMQr1uYCRjT5d_1I6PCSMII0UCD"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-wire btn-resume"
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16"/></svg>
+                Resume
+              </a>
             </div>
           </div>
 
@@ -487,7 +517,7 @@ function Hero() {
                 <Fragment key={l}>
                   {i > 0 && <div className="stat-div" style={{ width: "1px", background: "var(--border)", height: "60px", flexShrink: 0, marginRight: "32px" }}/>}
                   <div style={{ paddingRight: i < stats.length - 1 ? "32px" : 0 }}>
-                    <div style={{ fontFamily: "var(--disp)", fontSize: "52px", color: "var(--fg)", lineHeight: 1 }}>{n}</div>
+                    <div className="disp" style={{ fontFamily: "var(--disp)", fontSize: "52px", color: "var(--fg)", lineHeight: 1 }}>{n}</div>
                     <div style={{ fontFamily: "var(--mono)", fontSize: "9px", color: "var(--dimmer)", letterSpacing: ".1em", marginTop: "4px" }}>{l}</div>
                   </div>
                 </Fragment>
@@ -496,16 +526,18 @@ function Hero() {
           </div>
         </div>
 
-        {/* tags row */}
-        <div style={{ marginTop: "52px", paddingTop: "20px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "14px", opacity: on ? 1 : 0, transition: "all .55s ease .62s" }}>
-          <div style={{ display: "flex", gap: "18px", flexWrap: "wrap" }}>
-            {["COMPUTER VISION","FACE RECOGNITION","IDENTITY TRACKING","VIDEO ANALYTICS","RAG SYSTEMS","FASTAPI"].map(t => (
-              <span key={t} style={{ fontFamily: "var(--mono)", fontSize: "9px", color: "var(--dimmer)", letterSpacing: ".1em" }}>{t}</span>
-            ))}
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "8px", fontFamily: "var(--mono)", fontSize: "9px", color: "var(--dimmer)", flexShrink: 0 }}>
-            <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "var(--acid)", display: "inline-block", boxShadow: "0 0 8px var(--acid)" }}/>
-            OPEN TO APPLIED AI ROLES
+        {/* tags row — pushed to bottom of viewport via auto margin */}
+        <div style={{ marginTop: "auto", paddingTop: "40px" }}>
+          <div style={{ paddingTop: "20px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "14px", opacity: on ? 1 : 0, transition: "all .55s ease .62s" }}>
+            <div style={{ display: "flex", gap: "18px", flexWrap: "wrap" }}>
+              {["COMPUTER VISION","FACE RECOGNITION","IDENTITY TRACKING","VIDEO ANALYTICS","RAG SYSTEMS","FASTAPI"].map(t => (
+                <span key={t} style={{ fontFamily: "var(--mono)", fontSize: "9px", color: "var(--dimmer)", letterSpacing: ".1em" }}>{t}</span>
+              ))}
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", fontFamily: "var(--mono)", fontSize: "9px", color: "var(--dimmer)", flexShrink: 0 }}>
+              <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "var(--acid)", display: "inline-block", boxShadow: "0 0 8px var(--acid)" }}/>
+              OPEN TO APPLIED AI ROLES
+            </div>
           </div>
         </div>
       </div>
@@ -531,7 +563,7 @@ function About() {
           {/* left col */}
           <div>
             <div className="sec-label">02 / About</div>
-            <div style={{ fontFamily: "var(--disp)", fontSize: "96px", lineHeight: 1, color: "transparent", WebkitTextStroke: "1px var(--faint)", marginBottom: "24px", userSelect: "none" }}>WHO</div>
+            <div className="disp" style={{ fontFamily: "var(--disp)", fontSize: "96px", lineHeight: 1, color: "transparent", WebkitTextStroke: "1px var(--faint)", marginBottom: "24px", userSelect: "none" }}>WHO</div>
             <div style={{ height: "1px", background: "var(--border)", marginBottom: "24px", position: "relative" }}>
               <div style={{ position: "absolute", right: 0, top: "-3px", width: "5px", height: "5px", borderRadius: "50%", background: "var(--acid)" }}/>
             </div>
@@ -571,7 +603,7 @@ function Projects() {
         <div className="rv" style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: "80px", flexWrap: "wrap", gap: "24px" }}>
           <div>
             <div className="sec-label">03 / Selected Work</div>
-            <h2 className="gh" data-t="THE WORK" style={{ fontFamily: "var(--disp)", fontSize: "clamp(56px,10vw,120px)", lineHeight: .92, color: "var(--fg)" }}>THE WORK</h2>
+            <h2 className="gh disp" data-t="THE WORK" style={{ fontFamily: "var(--disp)", fontSize: "clamp(56px,10vw,120px)", lineHeight: .92, color: "var(--fg)" }}>THE WORK</h2>
           </div>
           <p style={{ maxWidth: "240px", fontFamily: "var(--body)", fontSize: "13.5px", color: "var(--dim)", lineHeight: 1.8, marginBottom: "6px" }}>
             Four systems. Built end to end, in production.
@@ -591,25 +623,17 @@ function Projects() {
                       <span style={{ fontFamily: "var(--mono)", fontSize: "9px", color: "var(--dimmer)", letterSpacing: ".12em", lineHeight: 1.5 }}>{p.sub.toUpperCase()}</span>
                       <span style={{ fontFamily: "var(--mono)", fontSize: "8.5px", color: p.accent, letterSpacing: ".08em", border: `1px solid ${p.accent}`, padding: "3px 9px", flexShrink: 0, whiteSpace: "nowrap" }}>{p.badge}</span>
                     </div>
-                    <h3 style={{ fontFamily: "var(--disp)", fontSize: "clamp(34px,4.5vw,58px)", lineHeight: .95, color: "var(--fg)", letterSpacing: "-.01em", marginBottom: "20px" }}>{p.name}</h3>
+                    <h3 className="disp" style={{ fontFamily: "var(--disp)", fontSize: "clamp(34px,4.5vw,58px)", lineHeight: .95, color: "var(--fg)", letterSpacing: "-.01em", marginBottom: "20px" }}>{p.name}</h3>
                     <p style={{ fontFamily: "var(--body)", fontSize: "13.5px", lineHeight: 1.8, color: "var(--dim)", marginBottom: "22px" }}>{p.desc}</p>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
                       {tags.map(t => <span key={t} className="tag" style={{ fontSize: "9.5px" }}>{t}</span>)}
                     </div>
                   </div>
-                  <a href="#" className="pc-vd" style={{ color: p.accent }}>
-                    View Details
-                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-                  </a>
                 </div>
               </div>
             );
           })}
         </div>
-
-        <p className="rv" style={{ marginTop: "20px", fontFamily: "var(--mono)", fontSize: "9px", color: "var(--dimmer)", letterSpacing: ".04em" }}>
-          — Wire each "View Details" link to a case-study page, GitHub repo, or architecture deck.
-        </p>
       </div>
     </section>
   );
@@ -625,16 +649,16 @@ function Experience() {
       <div className="wrap">
         <div className="rv" style={{ marginBottom: "80px" }}>
           <div className="sec-label">04 / Experience</div>
-          <h2 className="gh" data-t="WHERE I'VE BEEN" style={{ fontFamily: "var(--disp)", fontSize: "clamp(46px,8.5vw,108px)", lineHeight: .92, color: "var(--fg)" }}>WHERE I'VE BEEN</h2>
+          <h2 className="gh disp" data-t="WHERE I'VE BEEN" style={{ fontFamily: "var(--disp)", fontSize: "clamp(46px,8.5vw,108px)", lineHeight: .92, color: "var(--fg)" }}>WHERE I'VE BEEN</h2>
         </div>
 
         {JOBS.map((j, i) => (
           <div key={j.co} className={`tl-item rv d${i + 1}`}>
-            <div style={{ fontFamily: "var(--disp)", fontSize: "44px", color: "var(--dimmer)", lineHeight: 1.1, paddingTop: "2px" }}>{j.yr}</div>
+            <div className="disp" style={{ fontFamily: "var(--disp)", fontSize: "44px", color: "var(--dimmer)", lineHeight: 1.1, paddingTop: "2px" }}>{j.yr}</div>
             <div>
               <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "16px", flexWrap: "wrap", marginBottom: "4px" }}>
                 <div>
-                  <h3 style={{ fontFamily: "var(--disp)", fontSize: "clamp(22px,3.2vw,36px)", color: "var(--fg)", letterSpacing: ".02em", lineHeight: 1.05 }}>{j.role}</h3>
+                  <h3 className="disp" style={{ fontFamily: "var(--disp)", fontSize: "clamp(22px,3.2vw,36px)", color: "var(--fg)", letterSpacing: ".02em", lineHeight: 1.05 }}>{j.role}</h3>
                   <div style={{ fontFamily: "var(--mono)", fontSize: "10px", color: "var(--dimmer)", marginTop: "6px", letterSpacing: ".05em" }}>{j.co}</div>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap", paddingTop: "4px" }}>
@@ -676,7 +700,7 @@ function Skills() {
       <div className="wrap">
         <div className="rv" style={{ marginBottom: "72px" }}>
           <div className="sec-label">05 / Stack</div>
-          <h2 className="gh" data-t="THE STACK" style={{ fontFamily: "var(--disp)", fontSize: "clamp(56px,10vw,120px)", lineHeight: .92, color: "var(--fg)" }}>THE STACK</h2>
+          <h2 className="gh disp" data-t="THE STACK" style={{ fontFamily: "var(--disp)", fontSize: "clamp(56px,10vw,120px)", lineHeight: .92, color: "var(--fg)" }}>THE STACK</h2>
         </div>
 
         {CLUSTERS.map((c, ci) => (
@@ -712,7 +736,7 @@ function Contact() {
       <div className="wrap">
         <div className="rv" style={{ borderTop: "1px solid var(--border)", paddingTop: "88px", marginBottom: "72px" }}>
           <div className="sec-label">06 / Contact</div>
-          <h2 style={{ fontFamily: "var(--disp)", fontSize: "clamp(48px,10.5vw,136px)", lineHeight: .88, letterSpacing: "-.01em", color: "var(--fg)", marginTop: "18px" }}>
+          <h2 className="disp" style={{ fontFamily: "var(--disp)", fontSize: "clamp(48px,10.5vw,136px)", lineHeight: .88, letterSpacing: "-.01em", color: "var(--fg)", marginTop: "18px" }}>
             LET'S BUILD<br/>
             <span style={{ color: "transparent", WebkitTextStroke: "2px var(--acid)" }}>SOMETHING</span><br/>
             THAT MATTERS
@@ -739,7 +763,7 @@ function Contact() {
         </div>
 
         <div className="rv d3" style={{ marginTop: "96px", paddingTop: "24px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
-          <span style={{ fontFamily: "var(--disp)", fontSize: "16px", letterSpacing: ".06em" }}>ASB<span style={{ color: "var(--acid)" }}>_</span></span>
+          <span className="disp" style={{ fontFamily: "var(--disp)", fontSize: "16px", letterSpacing: ".06em" }}>ASB<span style={{ color: "var(--acid)" }}>_</span></span>
           <span style={{ fontFamily: "var(--mono)", fontSize: "9px", color: "var(--dimmer)", letterSpacing: ".07em" }}>© 2026 — DESIGNED WITH INTENTION. BUILT FOR CLARITY.</span>
         </div>
       </div>
