@@ -48,7 +48,7 @@ const JOBS = [
   },
   {
     yr: "2025", span: "Sep 2025 → Mar 2026",
-    role: "Full Stack AI/ML Engineer Intern", co: "NIMIR Corporation, USA (Remote)",
+    role: "Full Stack AI/ML Engineer", co: "NIMIR Corporation, USA (Remote)",
     tag: null, tagAccent: false,
     pts: [
       "Enterprise-grade RAG pipelines with persistent multi-session conversational memory using LangChain + vector databases",
